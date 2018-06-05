@@ -1,73 +1,38 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: askolotii
- * Date: 04.06.2018
- * Time: 16:24
- */
 
 namespace app\controllers;
-
 
 class Route
 {
     public $route;
     public $route_function;
+    private $route_name = 'route';
+    private $controller_classes_default = 'Controller';
+    private $controller_functions_default = 'action';
 
     public function __construct()
     {
-        $route = stristr($_GET['route'], '/', 1);
-        echo '<br>ROUTE = ' . $route;
+        if (!empty($_GET[$this->route_name])) {
 
-        $route_function = substr(stristr($_GET['route'], '/'), 1);
-        echo "<br>ROUTE FUNCTION = " . $route_function;
+            $route_pieces = explode('/', $_GET[$this->route_name]);
+            $controller_class_name = 'app\controllers\\' . ucfirst($route_pieces[0]) . $this->controller_classes_default;
 
-        $this->route = $route;
-        $this->route_function = $route_function;
-    }
+            if (class_exists($controller_class_name)) {
+                $class_instance = new $controller_class_name();
 
-    public function callControllers($route, $route_function)
-    {
-        echo "<br> FROM callControler ROUTE = " . $this->route;
-        echo "<br> FROM callControler ROUTE_FUNCTION = " . $this->route_function;
+                for ($i = 1; $i < count($route_pieces); $i++) {
+                    $controller_method = $this->controller_functions_default . ucfirst($route_pieces[$i]);
 
-        switch ($this->route) {
-            case 'home':
-                switch ($this->route_function) {
-                    case 'main':
-                        $home = new Home();
-                        break;
+                    if (method_exists($controller_class_name, $controller_method)) {
+                        $class_instance->$controller_method();
 
+                    } else {
+                        $class_instance = new Page404();
+                    }
                 }
-            case 'account':
-                switch ($this->route_function) {
-                    case 'signin':
-                        $account = new Account();
-                        $account->signIn();
-                        break;
-                    case 'signup':
-                        $account = new  Account();
-                        $account->signUp();
-                        break;
-                    case 'signout':
-                        $account = new Account();
-                        $account->signOut();
-                        break;
-
-                }
-            case 'contacts':
-                switch ($this->route_function) {
-                    case 'usa':
-                        $contacts = new Contact();
-                        $contacts->usa();
-                        break;
-                    case 'japan':
-                        $contacts = new  Contact();
-                        $contacts->japan();
-                        break;
-                }
-
-
+            }
+        } else {
+            $class_instance = new Page404();
         }
     }
 }
