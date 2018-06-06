@@ -6,9 +6,20 @@ use app\views\View;
 
 class AccountController
 {
+    public function __construct()
+    {
+        $showAccount  = new View();
+        $showAccount -> showAccount();
+    }
+
     public function actionSignin()
     {
         $getAccountModel = new AccountModel();
+
+
+        //$getAccountModel->validateUsername();
+
+
         $getAccountModel -> getDataFromDb();
 
         $showAccount  = new View();
@@ -22,12 +33,10 @@ class AccountController
 
         $showAccount  = new View();
         $showAccount -> showAccount();
-
     }
 
-    public function actionSignout()
+    public function validateUsername()
     {
-        //TODO
-    }
 
+    }
 }

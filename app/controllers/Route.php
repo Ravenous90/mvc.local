@@ -32,7 +32,8 @@ class Route
                 }
             }
         } else {
-            $class_instance = new Page404();
+            $class_instance = new HomeController();
+
         }
     }
 }

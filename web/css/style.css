@@ -1,0 +1,23 @@
+.form-group {
+    margin: 10px;
+}
+
+.form-control {
+    width: 350px;
+}
+
+.btn-primary {
+    margin: 10px;
+    width: 163px;
+}
+
+.nav-item {
+    border: 1px solid;
+    border-radius: 15px;
+    background: snow;
+    font: 20px Cambria;
+}
+
+.nav-item:hover {
+    background: darkgray;
+}

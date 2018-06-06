@@ -9,7 +9,7 @@ class DB
 
     private static $defaultConfig = [
         'host' => 'localhost',
-        'db_name' => 'test',
+        'db_name' => 'mvc',
         'admin' => 'root',
         'pass' => '',
     ];

@@ -6,30 +6,28 @@ use app\views\View;
 
 class HomeController
 {
-    public function actionMain()
+    public function __construct()
     {
-        $getHomeModel = new HomeModel();
-
         $showHome  = new View();
         $showHome -> showHome();
+
+        echo "This is HomeController<br>";
     }
 
     public function actionGuide()
     {
-        $getHomeModel = new HomeModel();
-        echo "You have called method actionGuide from HomeController";
-
         $showHome  = new View();
         $showHome -> showHome();
+
+        echo "You have called method actionGuide from HomeController, here we may call any data from HomeModel";
     }
 
-    public function actionResult()
+    public function actionHelp()
     {
-        $getHomeModel = new HomeModel();
-        echo "You have called method actionResult from HomeController";
-
         $showHome  = new View();
         $showHome -> showHome();
+
+        echo "You have called method actionHelp from HomeController, here we may call any data from HomeModel";
     }
 
 }
